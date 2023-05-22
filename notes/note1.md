@@ -11,6 +11,8 @@ RWKV模型是一种RNN范式下的大语言模型实现范式。效果是相当�
 源码中的RWKV的模块核心是两个机制：通道混合(Channel mixing)和 时间混合(Time mixing)。针对时间混合(Time mixing)笔者画了一个草图。
 
 
+![RWKV时间混合(Time mixing)机制](https://github.com/limoncc/understand_rwkv/blob/main/images/RWKV%E6%A8%A1%E5%9E%8B.jpg "时间混合(Time mixing)机制")
+
 RWKV模型的时间混合(Time mixing)机制 这里所用符号与BlinkDL - Overview中的readme有所不同。
 
 ##### 2.1、时间混合机制(Time mixing)
