@@ -1,0 +1,71 @@
+import torch
+
+model = torch.load("./data/model/RWKV-4b-Pile-3B-20230228-7963.pth",map_location=torch.device('cpu'))
+
+model.keys()
+
+
+time_decay = model['blocks.0.att.time_decay']
+time_decay.shape
+a = time_decay.to(torch.float32).numpy().tolist()
+[x for x in a if x>0]
+
+time_first = model['blocks.0.att.time_first']
+b = time_first.to(torch.float32).numpy().tolist()
+
+
+all_time_decay = []
+for num in range(32):
+    time_decay = model[f'blocks.{num}.att.time_decay']
+    time_decay_list = time_decay.to(torch.float32).numpy().tolist()
+    all_time_decay.append(time_decay_list)
+    ...
+import pandas as pd
+
+all_time_decay_df = pd.DataFrame(all_time_decay)
+all_time_decay_df.T.to_csv("./data/all_time_decay.csv",index=False)
+
+
+import matplotlib.pyplot as plt
+plt.plot(b)
+plt.show()
+len([x for x in b if x>0])
+
+# 364915f7-9d28-4c02-b167-ba75fc7aa94b
+
+import hashlib
+from typing import  Union
+def cal_md5(image_path: Union[str, bytes]) -> str:
+    if type(image_path) == str:
+        chunk_num_blocks = 128
+        md5_cal = hashlib.md5()
+        with open(image_path, 'rb') as f:
+            for chunk in iter(lambda: f.read(chunk_num_blocks * md5_cal.block_size), b''):
+                md5_cal.update(chunk)
+                ...
+            ...
+        result = md5_cal.hexdigest()
+    elif type(image_path) == bytes:
+        result = hashlib.md5(image_path).hexdigest()
+    else:
+        raise ValueError("输入应该是图像路径或者图像的base64")
+        ...
+    
+    return result
+
+cal_md5('images/RWKV模型.jpg')
+# 51034ab0-68b4-4241-a7b3-9f14e6c77999
+# 364915f7-9d28-4c02-b167-ba75fc7aa94b
+
+
+svg = """<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="6.821ex" role="img" focusable="false" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -2.845ex; min-width: 74.785ex;"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(0.016063,-0.016063) translate(0, -1757.5)"><g data-mml-node="math"><g data-mml-node="mtable" transform="translate(2078,0) translate(-2078,0)"><g transform="translate(0 1757.5) matrix(1 0 0 -1 0 0) scale(62.25)"><svg data-table="true" preserveAspectRatio="xMidYMid" viewBox="14449.5 -1757.5 1 3015"><g transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mlabeledtr"><g data-mml-node="mtd"><g data-mml-node="msub"><g data-mml-node="mi"><use data-c="1D45C" xlink:href="#MJX-TEX-I-1D45C"></use></g><g data-mml-node="TeXAtom" transform="translate(518,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D461" xlink:href="#MJX-TEX-I-1D461"></use></g></g></g><g data-mml-node="mo" transform="translate(1101,0)"><use data-c="3D" xlink:href="#MJX-TEX-N-3D"></use></g><g data-mml-node="mi" transform="translate(2156.8,0)"><use data-c="1D70E" xlink:href="#MJX-TEX-I-1D70E"></use></g><g data-mml-node="mo" transform="translate(2727.8,0)"><use data-c="28" xlink:href="#MJX-TEX-N-28"></use></g><g data-mml-node="msub" transform="translate(3116.8,0)"><g data-mml-node="mi"><use data-c="1D45F" xlink:href="#MJX-TEX-I-1D45F"></use></g><g data-mml-node="mi" transform="translate(484,-150) scale(0.707)"><use data-c="1D461" xlink:href="#MJX-TEX-I-1D461"></use></g></g><g data-mml-node="mo" transform="translate(3906.1,0)"><use data-c="29" xlink:href="#MJX-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(4517.3,0)"><use data-c="22C5" xlink:href="#MJX-TEX-N-22C5"></use></g><g data-mml-node="mfrac" transform="translate(5017.5,0)"><g data-mml-node="mrow" transform="translate(220,809.5)"><g data-mml-node="munderover"><g data-mml-node="mo"><use data-c="2211" xlink:href="#MJX-TEX-SO-2211"></use></g><g data-mml-node="TeXAtom" transform="translate(1089,477.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D461" xlink:href="#MJX-TEX-I-1D461"></use></g><g data-mml-node="mo" transform="translate(361,0)"><use data-c="2212" xlink:href="#MJX-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(1139,0)"><use data-c="31" xlink:href="#MJX-TEX-N-31"></use></g></g><g data-mml-node="TeXAtom" transform="translate(1089,-285.4) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D70F" xlink:href="#MJX-TEX-I-1D70F"></use></g><g data-mml-node="mo" transform="translate(517,0)"><use data-c="3D" xlink:href="#MJX-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(1295,0)"><use data-c="31" xlink:href="#MJX-TEX-N-31"></use></g></g></g><g data-mml-node="mi" transform="translate(2574.9,0)"><use data-c="65" xlink:href="#MJX-TEX-N-65"></use><use data-c="78" xlink:href="#MJX-TEX-N-78" transform="translate(444,0)"></use><use data-c="70" xlink:href="#MJX-TEX-N-70" transform="translate(972,0)"></use></g><g data-mml-node="mo" transform="translate(4102.9,0)"><use data-c="2061" xlink:href="#MJX-TEX-N-2061"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(4269.6,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="5B" xlink:href="#MJX-TEX-SO-5B"></use></g></g><g data-mml-node="mo" transform="translate(4908.8,0)"><use data-c="2212" xlink:href="#MJX-TEX-N-2212"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(5909,0)"><g data-mml-node="mi"><use data-c="1D464" xlink:href="#MJX-TEX-I-1D464"></use></g><g data-mml-node="mo" transform="translate(716,0)"><use data-c="28" xlink:href="#MJX-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(1105,0)"><use data-c="1D461" xlink:href="#MJX-TEX-I-1D461"></use></g><g data-mml-node="mo" transform="translate(1688.2,0)"><use data-c="2212" xlink:href="#MJX-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(2688.4,0)"><use data-c="31" xlink:href="#MJX-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(3410.7,0)"><use data-c="2212" xlink:href="#MJX-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(4410.9,0)"><use data-c="1D70F" xlink:href="#MJX-TEX-I-1D70F"></use></g><g data-mml-node="mo" transform="translate(4927.9,0)"><use data-c="29" xlink:href="#MJX-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(5539.1,0)"><use data-c="2B" xlink:href="#MJX-TEX-N-2B"></use></g><g data-mml-node="msub" transform="translate(6539.3,0)"><g data-mml-node="mi"><use data-c="1D458" xlink:href="#MJX-TEX-I-1D458"></use></g><g data-mml-node="mi" transform="translate(554,-150) scale(0.707)"><use data-c="1D70F" xlink:href="#MJX-TEX-I-1D70F"></use></g></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(13417.9,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="5D" xlink:href="#MJX-TEX-SO-5D"></use></g></g><g data-mml-node="mo" transform="translate(14057.2,0)"><use data-c="22C5" xlink:href="#MJX-TEX-N-22C5"></use></g><g data-mml-node="msub" transform="translate(14557.4,0)"><g data-mml-node="mi"><use data-c="1D463" xlink:href="#MJX-TEX-I-1D463"></use></g><g data-mml-node="mi" transform="translate(518,-150) scale(0.707)"><use data-c="1D70F" xlink:href="#MJX-TEX-I-1D70F"></use></g></g><g data-mml-node="mo" transform="translate(15713.2,0)"><use data-c="2B" xlink:href="#MJX-TEX-N-2B"></use></g><g data-mml-node="mi" transform="translate(16713.4,0)"><use data-c="65" xlink:href="#MJX-TEX-N-65"></use><use data-c="78" xlink:href="#MJX-TEX-N-78" transform="translate(444,0)"></use><use data-c="70" xlink:href="#MJX-TEX-N-70" transform="translate(972,0)"></use></g><g data-mml-node="mo" transform="translate(18241.4,0)"><use data-c="2061" xlink:href="#MJX-TEX-N-2061"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(18408.1,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="5B" xlink:href="#MJX-TEX-SO-5B"></use></g></g><g data-mml-node="mi" transform="translate(18825.1,0)"><use data-c="1D462" xlink:href="#MJX-TEX-I-1D462"></use></g><g data-mml-node="mo" transform="translate(19619.3,0)"><use data-c="2B" xlink:href="#MJX-TEX-N-2B"></use></g><g data-mml-node="msub" transform="translate(20619.5,0)"><g data-mml-node="mi"><use data-c="1D458" xlink:href="#MJX-TEX-I-1D458"></use></g><g data-mml-node="mi" transform="translate(554,-150) scale(0.707)"><use data-c="1D461" xlink:href="#MJX-TEX-I-1D461"></use></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(21478.8,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="5D" xlink:href="#MJX-TEX-SO-5D"></use></g></g><g data-mml-node="mo" transform="translate(22118,0)"><use data-c="22C5" xlink:href="#MJX-TEX-N-22C5"></use></g><g data-mml-node="msub" transform="translate(22618.2,0)"><g data-mml-node="mi"><use data-c="1D463" xlink:href="#MJX-TEX-I-1D463"></use></g><g data-mml-node="mi" transform="translate(518,-150) scale(0.707)"><use data-c="1D461" xlink:href="#MJX-TEX-I-1D461"></use></g></g></g><g data-mml-node="mrow" transform="translate(1820.9,-908)"><g data-mml-node="munderover"><g data-mml-node="mo"><use data-c="2211" xlink:href="#MJX-TEX-SO-2211"></use></g><g data-mml-node="TeXAtom" transform="translate(1089,477.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D461" xlink:href="#MJX-TEX-I-1D461"></use></g><g data-mml-node="mo" transform="translate(361,0)"><use data-c="2212" xlink:href="#MJX-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(1139,0)"><use data-c="31" xlink:href="#MJX-TEX-N-31"></use></g></g><g data-mml-node="TeXAtom" transform="translate(1089,-285.4) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D70F" xlink:href="#MJX-TEX-I-1D70F"></use></g><g data-mml-node="mo" transform="translate(517,0)"><use data-c="3D" xlink:href="#MJX-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(1295,0)"><use data-c="31" xlink:href="#MJX-TEX-N-31"></use></g></g></g><g data-mml-node="mi" transform="translate(2574.9,0)"><use data-c="65" xlink:href="#MJX-TEX-N-65"></use><use data-c="78" xlink:href="#MJX-TEX-N-78" transform="translate(444,0)"></use><use data-c="70" xlink:href="#MJX-TEX-N-70" transform="translate(972,0)"></use></g><g data-mml-node="mo" transform="translate(4102.9,0)"><use data-c="2061" xlink:href="#MJX-TEX-N-2061"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(4269.6,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="5B" xlink:href="#MJX-TEX-SO-5B"></use></g></g><g data-mml-node="mo" transform="translate(4908.8,0)"><use data-c="2212" xlink:href="#MJX-TEX-N-2212"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(5909,0)"><g data-mml-node="mi"><use data-c="1D464" xlink:href="#MJX-TEX-I-1D464"></use></g><g data-mml-node="mo" transform="translate(716,0)"><use data-c="28" xlink:href="#MJX-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(1105,0)"><use data-c="1D461" xlink:href="#MJX-TEX-I-1D461"></use></g><g data-mml-node="mo" transform="translate(1688.2,0)"><use data-c="2212" xlink:href="#MJX-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(2688.4,0)"><use data-c="31" xlink:href="#MJX-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(3410.7,0)"><use data-c="2212" xlink:href="#MJX-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(4410.9,0)"><use data-c="1D70F" xlink:href="#MJX-TEX-I-1D70F"></use></g><g data-mml-node="mo" transform="translate(4927.9,0)"><use data-c="29" xlink:href="#MJX-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(5539.1,0)"><use data-c="2B" xlink:href="#MJX-TEX-N-2B"></use></g><g data-mml-node="msub" transform="translate(6539.3,0)"><g data-mml-node="mi"><use data-c="1D458" xlink:href="#MJX-TEX-I-1D458"></use></g><g data-mml-node="mi" transform="translate(554,-150) scale(0.707)"><use data-c="1D70F" xlink:href="#MJX-TEX-I-1D70F"></use></g></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(13417.9,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="5D" xlink:href="#MJX-TEX-SO-5D"></use></g></g><g data-mml-node="mo" transform="translate(14057.2,0)"><use data-c="2B" xlink:href="#MJX-TEX-N-2B"></use></g><g data-mml-node="mi" transform="translate(15057.4,0)"><use data-c="65" xlink:href="#MJX-TEX-N-65"></use><use data-c="78" xlink:href="#MJX-TEX-N-78" transform="translate(444,0)"></use><use data-c="70" xlink:href="#MJX-TEX-N-70" transform="translate(972,0)"></use></g><g data-mml-node="mo" transform="translate(16585.4,0)"><use data-c="2061" xlink:href="#MJX-TEX-N-2061"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(16752.1,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="5B" xlink:href="#MJX-TEX-SO-5B"></use></g></g><g data-mml-node="mi" transform="translate(17169.1,0)"><use data-c="1D462" xlink:href="#MJX-TEX-I-1D462"></use></g><g data-mml-node="mo" transform="translate(17963.3,0)"><use data-c="2B" xlink:href="#MJX-TEX-N-2B"></use></g><g data-mml-node="msub" transform="translate(18963.5,0)"><g data-mml-node="mi"><use data-c="1D458" xlink:href="#MJX-TEX-I-1D458"></use></g><g data-mml-node="mi" transform="translate(554,-150) scale(0.707)"><use data-c="1D461" xlink:href="#MJX-TEX-I-1D461"></use></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(19822.8,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="5D" xlink:href="#MJX-TEX-SO-5D"></use></g></g></g><rect width="23641.5" height="60" x="120" y="220"></rect></g></g></g></g></svg><svg data-labels="true" preserveAspectRatio="xMaxYMid" viewBox="1278 -1757.5 1 3015"><g data-labels="true" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mtd" id="mjx-eqn:1"><g data-mml-node="mtext"><use data-c="28" xlink:href="#MJX-TEX-N-28"></use><use data-c="31" xlink:href="#MJX-TEX-N-31" transform="translate(389,0)"></use><use data-c="29" xlink:href="#MJX-TEX-N-29" transform="translate(889,0)"></use></g></g></g></svg></g></g></g></g></svg>"""
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPM
+
+pic = svg2rlg('马.svg')
+renderPM.drawToFile(pic,'svglib.png')
+
+# 写一个小工具,把公式改为png. 并确保格式的准确
+# https://blog.csdn.net/only__Y/article/details/107873709
+# https://zhuanlan.zhihu.com/p/269523443
+# https://segmentfault.com/a/1190000020137757
